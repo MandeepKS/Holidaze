@@ -1,0 +1,22 @@
+@use './variables' as *;
+
+
+@media screen and (max-width: 991px){
+//Global
+.cta-btn{
+    padding:0.25rem 1.5rem;
+}
+.section{
+    &_login{
+        img{
+            display:none;
+        }
+        &_group{
+            padding-top:8rem;
+        }
+        form{
+            width:65%;
+        }
+    }
+ }
+}

@@ -14,7 +14,7 @@
        }
        img{
         width:100%;
-        height: 92vh;
+        height: 90vh;
         object-fit: cover;
        }
        form{
@@ -29,13 +29,26 @@
        &_input{
         display: flex;
         flex-direction: column;
-        border: 1px solid $dark-grey;
+        border: 2px solid $dark-grey;
         border-radius: 0.4rem;
         padding: 0.4rem;
        }
        &_input:has(input:focus),
        &_input:has(input:active) {
-         border: 1px solid $extra-dark-grey;
+         border: 2px solid $dark-red;
+       }
+       &_registration{
+        margin-top: 0.8rem;
+        width:100%;
+        max-width:14rem;
+        a{
+          color:$extra-dark-grey;
+          @extend .transition-3s;
+          &:hover{
+            @extend .transition-3s;
+            color: $dark-red;
+          }
+        }
        }
     }
 

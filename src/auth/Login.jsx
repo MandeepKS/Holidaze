@@ -3,8 +3,13 @@ import myImage from '../css/images/travelmap.jpg'
 import {useState} from 'react';
 import  {useLoggedIn} from '../context/Context';
 import apiEndpoints from '../api/endpoints';
+/**
+ * Login component handles user authentication.
+ * @returns {JSX.Element} The login form component.
+ */
 function Login() {
     const navigate = useNavigate();
+    const [authError, setAuthError] = useState(""); // State for authentication error
     const {
       setIsLoggedIn,
       setIsManager,
@@ -13,15 +18,33 @@ function Login() {
       setName,
       setEmail,
     } = useLoggedIn();
+     /**
+     * State for managing form data.
+     * @type {Object}
+     * @property {string} email - The user's email.
+     * @property {string} password - The user's password.
+     */
     const [formData, setFormData] = useState({
             email :'',
             password :'',
     });
+     /**
+     * State for storing validation errors.
+     * @type {Object}
+     */
     const [errors,setErrors] = useState({});
+      /**
+     * Handles input changes and updates the state.
+     * @param {Object} e - The event object.
+     */
     const handleChange = (e) => {
         const {id, value} = e.target;
         setFormData({...formData, [id]: value});
     };
+    /**
+     * Validates the form inputs.
+     * @returns {Object} An object containing validation errors.
+     */
     const validate = () => {
         const validationErrors = {};
          // Email validation
@@ -38,8 +61,13 @@ function Login() {
         }
         return validationErrors;
       };
+      /**
+     * Handles form submission, validates input, and performs login request.
+     * @param {Object} e - The event object.
+     */
       const handleSubmit = async (e) => {
         e.preventDefault();
+        setAuthError(""); // Reset auth error before validating
         const validationErrors = validate();
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length === 0) {
@@ -57,11 +85,9 @@ function Login() {
             },
             mode: "cors", // Allows cross-origin requests
           });
-          console.log({response});
-
           if (!response.ok) {
-            const errorResponse = await response.text(); // Read error message
-            throw new Error(errorResponse);
+            setAuthError("Invalid email or password"); // Set authentication error
+            return;
           }
            // Reset form fields after successful submission
            const responseData = await response.json();
@@ -71,8 +97,7 @@ function Login() {
             password: '',
           });
           setErrors({});
-          console.log(" Login Response Status:", response.status);
-      if (response.status === 200) {
+      if (response.ok) {
           setIsLoggedIn(true);
           setIsManager(responseData.data.venueManager);
           setToken(responseData.data.accessToken);
@@ -85,6 +110,7 @@ function Login() {
       }
         } catch (error){
           console.error(error);
+          setAuthError("Something went wrong. Please try again.");
         }
       }
     };
@@ -92,7 +118,7 @@ function Login() {
     <div>
         <div className="section_login">
             <div className="row">
-                <div className="col-6">
+                <div className="col col-12 col-lg-6">
                     <div className="section_login_group">
                         <h3>Welcome to Holidaze!</h3>
                         <form onSubmit={handleSubmit}>
@@ -107,11 +133,16 @@ function Login() {
                             </div>
                             {errors.password && <p className="text-danger">{errors.password}</p>}
                             <button className='cta-btn' type="submit">Login</button>
-                        <p>Don't have an account? <span><Link to='/register'>Register here</Link></span></p>
+                            {authError && (
+                            <div className="error-box mt-2">
+                              <p className="text-danger">{authError}</p>
+                            </div>
+                          )}
+                        <p className='section_login_registration'>Don't have an account? <span><Link to='/register'>Register here</Link></span></p>
                         </form>
                     </div>
                 </div>
-                <div className="col-6">
+                <div className="col col-12 col-lg-6">
                 <img src={myImage} className='img-fluid' alt="Description" />
                 </div>
             </div>

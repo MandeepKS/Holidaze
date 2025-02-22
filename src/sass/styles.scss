@@ -2,9 +2,12 @@
 @use 'partials/login.scss' as *;
 @use 'partials/calendar.scss' as *;
 @use 'partials/guestCounter.scss' as *;
+@use 'partials/responsive.scss' as *;
 body {
     font-family: Arial, sans-serif;
     background-color: $white  !important;
+    margin:0;
+    padding:0;
   }
   .section{
     &_products{

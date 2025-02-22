@@ -4,6 +4,7 @@ import  apiEndpoints from '../api/endpoints'
 import React,{useState} from 'react';
 function Register() {
   const navigate = useNavigate();
+  const [authError, setAuthError] = useState(""); // State for authentication error
     const [formData, setFormData] = useState({
         name :'',
         email :'',
@@ -37,6 +38,7 @@ function Register() {
       };
       const handleSubmit = async (e) => {
         e.preventDefault();
+        setAuthError(""); // Reset auth error before validating
         const validationErrors = validate();
         setErrors(validationErrors);
 
@@ -62,8 +64,7 @@ function Register() {
           console.log({response});
 
           if (!response.ok) {
-            const errorResponse = await response.text(); // Read error message
-            console.error("API Error:", errorResponse);
+            setAuthError("Invalid registration!"); // Set authentication error
             return;
         }
          // Reset form fields after successful submission
@@ -74,7 +75,7 @@ function Register() {
               });
               setErrors({});
               console.log("Registration Response Status:", response.status);
-          if (response.status === 201) {
+          if (response.ok) {
             setTimeout(() => {
               navigate("/login");
             }, 1000);
@@ -89,7 +90,7 @@ function Register() {
     <div>
         <div className="section_login">
             <div className="row">
-                <div className="col-6">
+                <div className="col col-12 col-lg-6">
                     <div className="section_login_group">
                         <h3>Welcome to Holidaze!</h3>
                         <form onSubmit={handleSubmit}>
@@ -113,11 +114,16 @@ function Register() {
                                 <input type="text" id="avtar" className="section_avtar" placeholder="https://example.com/avtar.png" />
                             </div>
                             <button className='cta-btn' type="submit">Register</button>
-                        <p>Already have an account? <span><Link to='/login'>Login here</Link></span></p>
+                            {authError && (
+                            <div className="error-box mt-2">
+                              <p className="text-danger">{authError}</p>
+                            </div>
+                          )}
+                        <p className='section_login_registration'>Already have an account? <span><Link to='/login'>Login here</Link></span></p>
                         </form>
                     </div>
                 </div>
-                <div className="col-6">
+                <div className="col col-12 col-lg-6">
                 <img src={myImage} className='img-fluid' alt="Description" />
                 </div>
             </div>
