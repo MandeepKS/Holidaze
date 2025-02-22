@@ -5,7 +5,19 @@ $dark-grey:rgb(196, 196, 196);
 $dark-red: rgb(145, 33, 33);
 $light-red: rgba(145, 33, 33, 0.801);
 $extra-dark-grey:#4a4541;
-
+.dark-red{
+ color: $dark-red;
+}
+.black{
+  color:black;
+}
+.bg-grey{
+  background-color: $grey !important;
+}
+.bg-dark-red{
+  background-color: $dark-red !important;
+  color:white !important;
+}
 /*Transitions*/
 .transition-1s {
   -webkit-transition: all .1s ease-in-out;
@@ -72,6 +84,7 @@ $extra-dark-grey:#4a4541;
 :root {
     --grey: #{$grey}; // accessible in React
     --dark-grey: #{$dark-grey};
+    --dark-red:#{$dark-red};
   }
   .custom-checkbox{
     width: 25px !important;

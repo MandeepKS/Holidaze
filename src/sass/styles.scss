@@ -62,11 +62,35 @@ header{
     }
     // Products Section home page
     &_products{
-      position:relative;
-      width: 100%;
-      bottom:-10rem;
+      margin-top: 10rem;
+      .row{
+        --bs-gutter-x:1.5rem;
+        --bs-gutter-y:3.5rem;
+      }
       .card{
+        overflow: hidden;
         height: 100%;
+        @extend .transition-5s;
+        img{
+          @extend .transition-5s;
+        }
+        &:hover img{
+          transform: scale(1.1);
+          @extend .transition-5s;
+        }
+      }
+      .location{
+        color: $dark-red;
+        &::before{
+          content: "";
+          background-image: url('../css/images/Location.png');
+          display: inline-block;
+          background-repeat: no-repeat;
+          top:1rem;
+          position: relative;
+          width:2rem;
+          height: 2rem;
+        }
       }
     }
   }

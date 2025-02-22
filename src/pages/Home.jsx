@@ -75,12 +75,11 @@ function Home() {
     if (isError) {
         return <div>Error loading data</div>;
     }
-
     return (
         <div>
             <div className="section_hero">
               <div className="section_hero_image">
-                <video class="introVideo" autoplay="" loop="" muted="" playsinline="">
+                <video className="introVideo" autoPlay loop muted playsInline>
                   <source src={hotelVideo} type="video/mp4" />
               </video>
                 {/* <img src={plane} alt="plane" /> */}
@@ -108,7 +107,6 @@ function Home() {
                     <div className="row">
                         {filteredPosts.length > 0 ? (
                             filteredPosts.map((post) => {
-                                let sale = parseFloat(post.price) - parseFloat(post.discountedPrice);
                                 return (
                                     <div
                                         className="col-md-4 mb-4"
@@ -123,14 +121,16 @@ function Home() {
                                                     alt={post.media?.[0]?.alt || post.name}
                                                     style={{ maxHeight: '250px', objectFit: 'cover' }}
                                                 />
-                                                {sale > 0 ? <span className="sale-badge">SALE</span> : <span />}
                                                 <div className="card-body">
-                                                    <p className="card-text">
+                                                  <h5 className="card-title fw-bold">{post.name}</h5>
+                                                    <p className="card-text location">
                                                         {post.location.city === "" || post.location.city == null ? 'Unknown City' : post.location.city},
                                                         {post.location.country === "" || post.location.country == null ? 'Country ?' : post.location.country}
                                                     </p>
-                                                    <h5 className="card-title fw-bold">{post.name}</h5>
-                                                    <p className="card-text">$ {post.price} / night</p>
+                                                    <div className="card-group d-flex justify-content-between">
+                                                      <h5><StarRating count={post.rating} /></h5>
+                                                      <p className="card-text dark-red fw-bold">$ {post.price} <span className='black fw-normal'>/ night</span></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </Link>
@@ -149,4 +149,17 @@ function Home() {
     );
 }
 
+function StarRating(props){
+  const stars = [];
+  const emptyStars = [];
+  const totalStars = 5;
+  const remainingStars = totalStars - props.count;
+  for(let i = 0; i < props.count; i++){
+      stars.push(<i className="bi bi-star-fill fs-5 ms-1" key={i} style={{ color: 'var(--dark-red)' }}></i>);
+  }
+  for(let j = 0; j < remainingStars; j++){
+      emptyStars.push(<i className="bi bi-star-fill fs-5 ms-1" key={j} style={{ color: "var(--dark-grey)" }}></i>);
+  }
+  return <div>{[stars,emptyStars]}</div>
+}
 export default Home;

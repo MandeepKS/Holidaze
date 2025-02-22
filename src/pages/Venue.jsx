@@ -89,21 +89,18 @@ function Venue() {
     return (
             <div className="container">
                 <div className="row">
-                    <div className="col col-md-12">
-                        <h4 className="d-flex justify-content-center ms-5 mt-5 fw-bolder" >{data.name}</h4>
-                    </div>
-                    <div className="col-md-6">
+                    <div className="col col-12 col-md-6 mt-5">
                         <p className="d-flex justify-content-start fw-bold ">Price : $ {data.price}</p>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col col-12 col-md-6 mt-5">
                         <h5 className="d-flex justify-content-end ms-5 "> {rating} Stars <span className=" ms-3 "> <StarRating count={rating} /></span></h5>
                     </div>
                     <div className="col-md-12 mt-5 d-flex justify-content-center"><img className='img-fluid' src={data.media?.[0]?.url ? data.media[0].url : ''} alt={data.title} />
                     </div>
                     <div className="col-md-12">
 
-                        <div className="d-flex justify-content-between ms-5 mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_info"  style={{ cursor: "pointer" }} >
-                            <h3 className="d-flex justify-content-start ms-5 mt-3" >Information</h3>
+                        <div className="d-flex justify-content-between mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_info"  style={{ cursor: "pointer" }} >
+                            <h3 className="d-flex justify-content-start  mt-3" >Information</h3>
                             <div className="d-flex align-items-center" >
                                 <svg
                                     data-accordion-icon="true"
@@ -124,16 +121,17 @@ function Venue() {
                             </div>
                         </div>
                         <div id="hotel_info" className="collapse">
-                            <div className="card card-body">
-                            <p  className="d-flex justify-content-start ms-5 mt-2">{data.description}</p>
-                            <p  className="d-flex justify-content-start ms-5 mt-2">Max Guests : {data.maxGuests}</p>
-                            <p  className="d-flex justify-content-start ms-5 mt-2">Updated : {updated}</p>
+                            <div className="card card-body bg-grey">
+                            <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Hotel : </span> {data.name}</p>
+                            <p  className="d-flex justify-content-start ms-5 "><span className="fw-bold me-1">Description : </span> {data.description}</p>
+                            <p  className="d-flex justify-content-start ms-5"><span className="fw-bold me-1">Max Guests :</span> {data.maxGuests}</p>
+                            <p  className="d-flex justify-content-start ms-5"><span className="fw-bold me-1">Updated :</span> {updated}</p>
                             </div>
                         </div>
 
-                        <hr className="d-flex justify-content-start ms-5 "/>
-                        <div className="d-flex justify-content-between ms-5 mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_facilities"  style={{ cursor: "pointer" }} >
-                            <h3 className="d-flex justify-content-start ms-5 mt-3" >Facilities </h3>
+                        <hr className="d-flex justify-content-start"/>
+                        <div className="d-flex justify-content-between mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_facilities"  style={{ cursor: "pointer" }} >
+                            <h3 className="d-flex justify-content-start mt-3" >Facilities </h3>
                             <div className="d-flex align-items-center" >
                                 <svg
                                     data-accordion-icon="true"
@@ -155,16 +153,16 @@ function Venue() {
                         </div>
 
                         <div id="hotel_facilities" className="collapse">
-                            <div className="card card-body">
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Breakfast : {data.meta.breakfast ? 'Yes' :'No'}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Parking : {data.meta.parking  ? 'Yes' :'No'}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Wifi :  {data.meta.wifi ? 'Yes' : 'No'}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Pets : {data.meta.pets ? 'Yes':'No'}</p>
+                            <div className="card card-body bg-grey">
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Breakfast : </span>{data.meta.breakfast ? 'Yes' :'No'}</p>
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Parking : </span>{data.meta.parking  ? 'Yes' :'No'}</p>
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Wifi :  </span>{data.meta.wifi ? 'Yes' : 'No'}</p>
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Pets : </span>{data.meta.pets ? 'Yes':'No'}</p>
                             </div>
                         </div>
-                        <hr className="d-flex justify-content-start ms-5 "/>
-                        <div className="d-flex justify-content-between ms-5 mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_location"  style={{ cursor: "pointer" }} >
-                            <h3 className="d-flex justify-content-start ms-5 mt-3" >Location </h3>
+                        <hr className="d-flex justify-content-start"/>
+                        <div className="d-flex justify-content-between mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_location"  style={{ cursor: "pointer" }} >
+                            <h3 className="d-flex justify-content-start mt-3" >Location </h3>
                             <div className="d-flex align-items-center" >
                                 <svg
                                     data-accordion-icon="true"
@@ -185,22 +183,22 @@ function Venue() {
                             </div>
                         </div>
                         <div id="hotel_location" className="collapse">
-                            <div className="card card-body">
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Address : {data.location?.address}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">City : {data.location?.city}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Zip :  {data.location?.zip}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Country : {data.location?.country}</p>
+                            <div className="card card-body bg-grey">
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Address : </span>{data.location?.address}</p>
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">City : </span>{data.location?.city}</p>
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Zip :  </span>{data.location?.zip}</p>
+                                <p  className="d-flex justify-content-start ms-5 mt-2"><span className="fw-bold me-1">Country : </span>{data.location?.country}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr className="d-flex justify-content-start ms-5 "/>
+                <hr className="d-flex justify-content-start"/>
                 <div className="row">
                     <div className="col-md-12">
                     {!isLoggedIn ? <div><p>To create a booking you need to login</p> <Link to='/login'><button className='cta-btn' type="submit">Login</button></Link> </div> :
                     <div>
 
-                    <h4 className="mt-5 ms-5 mb-5">Make Reservation</h4>
+                    <h4 className="mt-5 ms-5 mb-3">Make Reservation</h4>
                     <Calendar
                             onChange={setDateRange}
                             value={dateRange}
@@ -238,7 +236,7 @@ function StarRating(props){
     const totalStars = 5;
     const remainingStars = totalStars - props.count;
     for(let i = 0; i < props.count; i++){
-        stars.push(<i className="bi bi-star-fill fs-5 ms-1" key={i} style={{ color: '#ffc107' }}></i>);
+        stars.push(<i className="bi bi-star-fill fs-5 ms-1" key={i} style={{ color: 'var(--dark-red)' }}></i>);
     }
     for(let j = 0; j < remainingStars; j++){
         emptyStars.push(<i className="bi bi-star-fill fs-5 ms-1" key={j} style={{ color: "var(--dark-grey)" }}></i>);
