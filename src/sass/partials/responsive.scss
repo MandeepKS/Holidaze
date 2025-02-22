@@ -2,10 +2,31 @@
 
 
 @media screen and (max-width: 991px){
+// Header
+header{
+    .navbar{
+        &-brand{
+            max-width:15rem;
+            width:100%;
+        }
+        .logo{
+          max-width: 65% !important;
+          width:100% !important;
+        }
+      }
+      .desktop{
+        display: none;
+      }
+      .mobile{
+        display:inline-block !important;
+      }
+}
+
 //Global
 .cta-btn{
     padding:0.25rem 1.5rem;
 }
+// Sections
 .section{
     &_login{
         img{

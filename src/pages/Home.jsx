@@ -1,6 +1,7 @@
 import apiEndpoints from '../api/endpoints';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import hotelVideo from '../css/images/HotelVideo.mp4';
 
 /**
  * Home component for displaying a list of venues.
@@ -78,25 +79,33 @@ function Home() {
     return (
         <div>
             <div className="section_hero">
+              <div className="section_hero_image">
+                <video class="introVideo" autoplay="" loop="" muted="" playsinline="">
+                  <source src={hotelVideo} type="video/mp4" />
+              </video>
+                {/* <img src={plane} alt="plane" /> */}
                 <div className="container">
+                  <div className="hero_group">
                     <h1 className="hero-title fw-bold">Discover Your Next Getaway</h1>
-                    <p className="hero-subtitle">Find the best deals on the latest products.</p>
+                    <p className="hero-subtitle">Find the best place to travel around the world.</p>
+                    <div className="input-group mb-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Search hotels"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                aria-label="Search hotels"
+                            />
+                            <button className="cta-btn" type="button" id="button-addon2">Search</button>
+                        </div>
+                  </div>
                 </div>
+              </div>
             </div>
             <div className="section_products" id="section_products">
                 <div className="container">
                     <div className="row">
-                        <div className="input-group mb-3">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Search for products"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                aria-label="Search for products"
-                            />
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-                        </div>
                         {filteredPosts.length > 0 ? (
                             filteredPosts.map((post) => {
                                 let sale = parseFloat(post.price) - parseFloat(post.discountedPrice);

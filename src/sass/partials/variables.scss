@@ -49,6 +49,8 @@ $extra-dark-grey:#4a4541;
     padding:0.5rem 2rem;
     border-radius: 0.4rem;
     border:1px solid $dark-red;
+    text-decoration: none;
+    font-weight: 600;
      @extend .transition-3s;
     &:hover{
       @extend.transition-3s;
@@ -70,13 +72,6 @@ $extra-dark-grey:#4a4541;
 :root {
     --grey: #{$grey}; // accessible in React
     --dark-grey: #{$dark-grey};
-  }
-  .container {
-    width: 100%;
-    max-width: 1870px;
-    padding: 0 140px;
-    position: relative;
-    margin: 0 auto;
   }
   .custom-checkbox{
     width: 25px !important;
