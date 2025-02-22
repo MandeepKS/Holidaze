@@ -1,0 +1,16 @@
+@use 'partials/variables.scss'   as *;
+@use 'partials/login.scss' as *;
+@use 'partials/calendar.scss' as *;
+@use 'partials/guestCounter.scss' as *;
+body {
+    font-family: Arial, sans-serif;
+    background-color: $white  !important;
+  }
+  .section{
+    &_products{
+      .card{
+        height: 100%;
+      }
+    }
+  }
+

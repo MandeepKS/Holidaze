@@ -1,0 +1,66 @@
+@use './variables' as *;
+//Styling Variables
+$shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+$border-radius: 35px;
+$nav-border-radius: 10px;
+
+//Calendar Container
+.react-calendar {
+  //text-align: center;
+  background: $dark-grey;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  max-width: 400px;
+  // margin: auto;
+}
+
+// Header Navigation
+.react-calendar__navigation__label {
+  background: $extra-dark-grey !important;
+  color: $white !important;
+  border-radius: $nav-border-radius $nav-border-radius 0 0;
+}
+.react-calendar__navigation__arrow{
+    border-radius: $border-radius;
+}
+// Today Date
+.react-calendar__tile--hasActive {
+    background: $extra-dark-grey !important;
+    color: $white !important;
+  }
+  // Today Date Now
+.react-calendar__tile--now {
+    background: $extra-dark-grey !important;
+    color: $white !important;
+  }
+
+// Calendar Days
+.react-calendar__tile {
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s ease;
+  background: $white;
+  color: $extra-dark-grey;
+  border-radius: $border-radius;
+
+  &:hover {
+    background: $dark-grey !important;
+    color: $extra-dark-grey !important;
+    border-radius: $border-radius;
+  }
+}
+
+// Selected Date
+.react-calendar__tile--active {
+  background: $dark-red !important;
+  color: $white !important;
+  border-radius: $border-radius;
+}
+
+//Disabled Dates
+.react-calendar__tile--disabled {
+  color: $dark-grey;
+  text-decoration: line-through;
+}

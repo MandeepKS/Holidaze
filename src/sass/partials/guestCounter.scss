@@ -1,0 +1,48 @@
+$border-color: rgb(144, 47, 47);
+$text-color: #333;
+$disabled-color: #ccc;
+
+.guest-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: $text-color;
+
+  .counter-btn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid $border-color;
+    background: transparent;
+    color: $border-color;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+
+    &:hover {
+      background: $border-color;
+      color: white;
+    }
+
+    &:disabled {
+      border-color: $disabled-color;
+      color: $disabled-color;
+      cursor: not-allowed;
+    }
+  }
+
+  .guest-count {
+    min-width: 30px;
+    text-align: center;
+  }
+
+  .guest-info {
+    font-size: 14px;
+    color: $text-color;
+  }
+}

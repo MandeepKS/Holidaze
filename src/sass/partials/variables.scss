@@ -1,0 +1,43 @@
+// Colors
+$grey:#f3f3f3;
+$white:#ffffff;
+$dark-grey:rgb(196, 196, 196);
+$dark-red: rgb(145, 33, 33);
+$light-red: rgba(145, 33, 33, 0.801);
+$extra-dark-grey:#4a4541;
+
+
+.cta{
+  &-btn{
+    background-color: $dark-red;
+    color:white;
+    border: none;
+    padding:0.5rem 2rem;
+    border-radius: 0.4rem;
+    &--outline{
+      border:1px solid $dark-red;
+      color:$dark-red;
+      background: none;
+      padding:0.5rem 2rem;
+      border-radius: 0.4rem;
+    }
+  }
+
+}
+
+:root {
+    --grey: #{$grey}; // accessible in React
+    --dark-grey: #{$dark-grey};
+  }
+
+  .custom-checkbox{
+    width: 25px !important;
+    height: 25px !important;
+    background-color: $grey!important;
+    border-color: $dark-grey !important;
+    margin-right: 5px;
+    &:checked{
+      background-color: $light-red!important;
+      border-color: $dark-red !important;
+    }
+  }
