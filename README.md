@@ -1,37 +1,34 @@
-# Holidaze
+Holidaze
 
 Holidaze is an e-commerce platform where users can browse, book, and manage holiday venues. Venue managers can also create and manage their listings.
+Table of Contents
 
-## Table of Contents
+    Features
+    Tech Stack
+    Installation
+    Available Scripts
+    API Usage
+    Development
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Installation](#installation)
-- [Available Scripts](#available-scripts)
-- [API Usage](#api-usage)
-- [Development](#development)
+Features
 
-## Features
+    User authentication (Login/Signup)
+    Venue listing with details (price, images, amenities, location, etc.)
+    Booking functionality
+    Admin panel for venue management
+    Responsive design for all devices
 
-- User authentication (Login/Signup)
-- Venue listing with details (price, images, amenities, location, etc.)
-- Booking functionality
-- Admin panel for venue management
-- Responsive design for all devices
+Tech Stack
 
-## Tech Stack
+    Frontend: React, React Router, Bootstrap
+    Backend: Uses external API endpoints (Noroff API)
+    State Management: React Context API
 
-- **Frontend:** React, React Router, Bootstrap
-- **Backend:** Uses external API endpoints (Noroff API)
-- **State Management:** React Context API
-
-## Installation
+Installation
 
 To set up the project locally, follow these steps:
+1. Clone the repository
 
-### 1. Clone the repository
-
-```sh
 git clone https://github.com/your-username/holidaze.git
 
 2. Navigate to the project directory
@@ -49,7 +46,7 @@ npm start
 This will run the app in development mode. Open http://localhost:3000 to view it in the browser.
 Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following commands:
 Start the development server
 
 npm start
@@ -67,7 +64,8 @@ npm run build
 Builds the app for production in the build folder.
 API Usage
 
-Holidaze interacts with external APIs for authentication, venue management, and booking. The API endpoints are configured in the api/endpoints.js file.
+Holidaze interacts with external APIs for authentication, venue management, and booking.
+The API endpoints are configured in the api/endpoints.js file.
 Example API Call: Fetching a User's Venues
 
 const url = apiEndpoints(undefined, name).profileVenues;
