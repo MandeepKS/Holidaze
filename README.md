@@ -1,73 +1,84 @@
-Holidaze
+# Holidaze
 
 Holidaze is an e-commerce platform where users can browse, book, and manage holiday venues. Venue managers can also create and manage their listings.
-Table of Contents
 
-    Features
-    Tech Stack
-    Installation
-    Available Scripts
-    API Usage
-    Development
+## Table of Contents
 
-Features
+*   [Features](#features)
+*   [Tech Stack](#tech-stack)
+*   [Installation](#installation)
+*   [Available Scripts](#available-scripts)
+*   [API Usage](#api-usage)
+*   [Development](#development)
 
-    User authentication (Login/Signup)
-    Venue listing with details (price, images, amenities, location, etc.)
-    Booking functionality
-    Admin panel for venue management
-    Responsive design for all devices
+## Features
 
-Tech Stack
+*   User authentication (Login/Signup)
+*   Venue listing with details (price, images, amenities, location, etc.)
+*   Booking functionality
+*   Admin panel for venue management
+*   Responsive design for all devices
 
-    Frontend: React, React Router, Bootstrap
-    Backend: Uses external API endpoints (Noroff API)
-    State Management: React Context API
+## Tech Stack
 
-Installation
+*   Frontend: React, React Router, Bootstrap
+*   Backend: Uses external API endpoints (Noroff API)
+*   State Management: React Context API
+
+## Installation
 
 To set up the project locally, follow these steps:
-1. Clone the repository
 
-git clone https://github.com/your-username/holidaze.git
+1.  Clone the repository
+    ```bash
+    git clone [https://github.com/your-username/holidaze.git](https://github.com/your-username/holidaze.git)
+    ```
 
-2. Navigate to the project directory
+2.  Navigate to the project directory
+    ```bash
+    cd holidaze
+    ```
 
-cd holidaze
+3.  Install dependencies
+    ```bash
+    npm install
+    ```
 
-3. Install dependencies
+4.  Start the development server
+    ```bash
+    npm start
+    ```
+    This will run the app in development mode. Open http://localhost:3000 to view it in the browser.
 
-npm install
-
-4. Start the development server
-
-npm start
-
-This will run the app in development mode. Open http://localhost:3000 to view it in the browser.
-Available Scripts
+## Available Scripts
 
 In the project directory, you can run the following commands:
-Start the development server
 
-npm start
+*   **Start the development server:**
+    ```bash
+    npm start
+    ```
+    Runs the app in development mode.
 
-Runs the app in development mode.
-Run tests
+*   **Run tests:**
+    ```bash
+    npm test
+    ```
+    Launches the test runner in interactive watch mode.
 
-npm test
+*   **Build the project:**
+    ```bash
+    npm run build
+    ```
+    Builds the app for production in the `build` folder.
 
-Launches the test runner in interactive watch mode.
-Build the project
+## API Usage
 
-npm run build
+Holidaze interacts with external APIs for authentication, venue management, and booking.  The API endpoints are configured in the `api/endpoints.js` file.
 
-Builds the app for production in the build folder.
-API Usage
+**Example API Call: Fetching a User's Venues**
 
-Holidaze interacts with external APIs for authentication, venue management, and booking.
-The API endpoints are configured in the api/endpoints.js file.
-Example API Call: Fetching a User's Venues
-
+```javascript
 const url = apiEndpoints(undefined, name).profileVenues;
 const response = await fetch(url, {
   method: 'GET',
@@ -78,12 +89,15 @@ const response = await fetch(url, {
   },
   mode: "cors",
 });
+````
+## Development
 
-Development
-Run the project
-
-npm start
-
-Build for production
-
-npm run build
+To run the project in development mode or build it for production, use the following commands:
+* **Run the project (development):**
+     ```bash
+    npm start
+    ```
+* **Build for production:**
+   ```bash
+     npm run build
+    ```
