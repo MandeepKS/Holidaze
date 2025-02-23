@@ -97,3 +97,14 @@ $extra-dark-grey:#4a4541;
       border-color: $dark-red !important;
     }
   }
+  .custom-switch{
+    width: 50px !important;
+    height:25px !important;
+    background-color: $grey!important;
+    border-color: $dark-grey !important;
+    margin-right: 5px;
+    &:checked{
+      background-color: $light-red!important;
+      border-color: $dark-red !important;
+    }
+  }

@@ -3,7 +3,7 @@
 @use 'partials/calendar.scss' as *;
 @use 'partials/guestCounter.scss' as *;
 @use 'partials/responsive.scss' as *;
-body {
+html,body {
     font-family: Arial, sans-serif;
     background-color: $white  !important;
     margin:0;
@@ -90,6 +90,30 @@ header{
           position: relative;
           width:2rem;
           height: 2rem;
+        }
+      }
+    }
+    // Admin pages
+    &_admin{
+      // Admin Venues page
+      &_venues{
+        margin-top: 5rem;
+        .card{
+          margin-top: 3rem;
+        }
+        a{
+          text-decoration: none;
+        }
+      }
+      // Profile page
+      &_profile{
+        margin-top: 6rem;
+        .row{
+          .col{
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+          }
         }
       }
     }

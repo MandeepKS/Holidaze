@@ -9,7 +9,7 @@ function apiEndpoints(id,name){
     const url = 'https://v2.api.noroff.dev';
     const endpoints = {
         register: `${url}/auth/register`,
-        login: `${url}/auth/login`,
+        login: `${url}/auth/login?_holidaze=true`,
         venues: `${url}/holidaze/venues/`,
         singleVenue: `${url}/holidaze/venues/${id}`,
         updateVenue: `${url}/holidaze/venues/${id}`,

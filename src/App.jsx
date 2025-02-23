@@ -10,10 +10,14 @@ import { AuthProvider } from "./context/Context";
 import Booking from './pages/admin/Booking';
 import ProfileVenues from './pages/admin/Venues';
 import ProfileVenue from './pages/admin/Venue';
+import Footer from './components/Footer';
+/**
+ * Main application component.
+ * @returns {JSX.Element} The main application component.
+ */
 function App() {
   return (
-    <div className="App">
-
+    <div className="App main-content">
       <main>
       <AuthProvider>
       <Navbar />
@@ -29,6 +33,8 @@ function App() {
       </Routes>
       </AuthProvider>
       </main>
+      <Footer/>
+
     </div>
   );
 }

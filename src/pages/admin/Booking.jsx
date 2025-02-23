@@ -1,7 +1,18 @@
+/**
+ * @file Booking Component
+ * @description This component fetches and displays a user's bookings.
+ * Users can view, and delete their bookings. If the user is not logged in, they are redirected to the Logout component.
+ */
 import {useLoggedIn} from '../../context/Context';
 import  apiEndpoints from '../../api/endpoints';
 import React,{useState, useEffect}  from "react";
 import Logout from '../../auth/Logout';
+import {Link} from 'react-router-dom';
+
+/**
+ * Booking Component
+ * @returns {JSX.Element} The Booking component UI.
+ */
 function Booking() {
     const [isLoading,setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -10,6 +21,10 @@ function Booking() {
     const [bookingData, setBookingData] = useState([]);
     const [selectedBooking, setSelectedBooking] = useState(null);
     const url = apiEndpoints(undefined,name).profileBooking;
+    /**
+     * Fetches booking data from the API.
+     * @returns {Promise<void>}
+     */
     useEffect(() => {
         async function getData() {
             try{
@@ -27,8 +42,6 @@ function Booking() {
                  const json = await response.json();
                  setBookingNo(json.data.length);
                  setBookingData(json.data);
-                console.log(json.data);
-
             } catch (error){
                 console.log(error);
             } finally{
@@ -48,6 +61,10 @@ function Booking() {
         if (isError) {
             return <div>Error</div>;
         }
+         /**
+         * Handles booking deletion.
+         * Deletes the selected booking from the API and updates the state.
+         */
         const handleDelete = async () => {
             if (selectedBooking) {
               try {
@@ -78,28 +95,30 @@ function Booking() {
               }
             }
           };
-
         return (
             <div className="container">
                 {bookingNo === 0 ? (
-                    <div>
-                    <h1>You have no bookings</h1>
-                    <p>Book a venue to get started</p>
+                    <div className='text-center  d-flex flex-column align-items-center justify-content-center vh-100'>
+                        <h1 className="fw-bold">My Venues</h1>
+                        <p className="text-muted fs-5">Book a venue to get started</p>
+                        <Link to="/" className="cta-btn mt-3">Book a venue</Link>
                     </div>
                 ) : (
                     <div>
-                        <h1>My bookings</h1>
+                        <h1 className='mt-5'>My bookings</h1>
                         {bookingData.map((booking) => (
                             <div  className="card mt-5" key={booking.id}>
                                 <div className="container">
                                     <div className="row">
-                                        <div className="col col-lg-6"><img className="img-fluid" src={booking?.venue.media[0].url} alt="" /></div>
-                                        <div className="col col-lg-6"> <h2>{booking.venue.name}</h2>
-                                            <h3>From: {booking.dateFrom}</h3>
-                                            <h3>To: {booking.dateTo}</h3>
-                                            <h3>Guests: {booking.guests}</h3>
-                                            {console.log(booking?.venue.media[0].url)}
-                                            <button  type="button"  data-bs-toggle="modal" data-bs-target="#deleteBookingModal" className="cta-btn"   onClick={() => setSelectedBooking(booking)}>Cancel Booking</button>
+                                        <div className="col col-12 col-lg-6"><img className="img-fluid" src={booking?.venue.media[0].url} alt="" /></div>
+                                        <div className="col col-12 col-lg-6">
+                                            <div className="card-inner mt-3">
+                                                <h2>{booking.venue.name}</h2>
+                                                <p>From: {new Date(booking.dateFrom).toLocaleString()}</p>
+                                                <p>To: {new Date(booking.dateTo).toLocaleString()}</p>
+                                                <p>Guests: {booking.guests}</p>
+                                                <button  type="button"  data-bs-toggle="modal" data-bs-target="#deleteBookingModal" className="cta-btn mb-5"   onClick={() => setSelectedBooking(booking)}>Cancel Booking</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="modal fade" id="deleteBookingModal" tabIndex="-1" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false">
@@ -128,9 +147,7 @@ function Booking() {
                                     </div>
                                 </div>
                             </div>
-
                         ))}
-
                     </div>
                 )}
             </div>

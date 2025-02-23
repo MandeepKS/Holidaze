@@ -2,6 +2,18 @@ import { Link ,useNavigate} from 'react-router-dom'
 import myImage from '../css/images/travelmap.jpg'
 import  apiEndpoints from '../api/endpoints'
 import React,{useState} from 'react';
+/**
+ * Register component that allows users to create an account.
+ *
+ * This component provides a form for users to input their name, email, and password.
+ * It includes validation checks and sends a registration request to the API.
+ *
+ * @component
+ * @example
+ * ```jsx
+ * <Register />
+ * ```
+ */
 function Register() {
   const navigate = useNavigate();
   const [authError, setAuthError] = useState(""); // State for authentication error
@@ -11,12 +23,23 @@ function Register() {
         password :'',
     });
     const [errors,setErrors] = useState({});
+     /**
+     * Handles input field changes and updates the form data state.
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e - The input change event
+     */
     const handleChange = (e) => {
         const {id, value} = e.target;
         setFormData({...formData, [id]: value});
     };
+    /**
+     * Validates the input fields and returns an object containing errors.
+     *
+     * @returns {Object} An object containing validation error messages.
+     */
     const validate = () => {
         const validationErrors = {};
+         // Name validation
         if(!formData.name.trim()){
           validationErrors.name = 'Please enter your name';
         } else if (formData.name.length < 3) {
@@ -36,6 +59,11 @@ function Register() {
         }
         return validationErrors;
       };
+      /**
+       * Handles form submission, validates input, and sends registration request.
+       *
+       * @param {React.FormEvent<HTMLFormElement>} e - The form submit event
+       */
       const handleSubmit = async (e) => {
         e.preventDefault();
         setAuthError(""); // Reset auth error before validating
@@ -109,10 +137,7 @@ function Register() {
                                 <input type="password" id="password" className="section_password" placeholder="your password"  value={formData.password} onChange={handleChange} />
                             </div>
                             {errors.password && <p className="text-danger">{errors.password}</p>}
-                            <label>Avtar</label>
-                            <div className="mb-3 section_login_input">
-                                <input type="text" id="avtar" className="section_avtar" placeholder="https://example.com/avtar.png" />
-                            </div>
+
                             <button className='cta-btn' type="submit">Register</button>
                             {authError && (
                             <div className="error-box mt-2">

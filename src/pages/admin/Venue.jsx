@@ -3,7 +3,11 @@ import {useParams } from 'react-router-dom';
 import  apiEndpoints from '../../api/endpoints'
 import {useLoggedIn} from '../../context/Context';
 
-// This function fetch the single Venue item
+/**
+ * Component to fetch and display a single Venue item.
+ * Allows updating and deleting venues, as well as fetching bookings.
+ * @returns {JSX.Element} The Venue component.
+ */
 function Venue() {
     const { id } = useParams();
     const url = apiEndpoints(id).singleVenue;
@@ -29,7 +33,9 @@ function Venue() {
       venueCity: "",
       venueCountry: "",
   });
-     // Memorized getData function to prevent useEffect from warning
+     /**
+     * Fetches venue data from the API and updates state.
+     */
     const getData = useCallback(async () => {
       setIsLoading(true);
       setIsError(false);
@@ -67,7 +73,10 @@ function Venue() {
     useEffect(() => {
       getData();
   }, [getData]);
-  // Function to handle form input changes
+    /**
+     * Handles form input changes.
+     * @param {React.ChangeEvent} e - The event object.
+     */
     const handleChange = (e) => {
       const { name, type, checked, value } = e.target;
       setFormData((prevData) => ({
@@ -75,7 +84,10 @@ function Venue() {
           [name]: type === "checkbox" ? checked : value,
         }));
   };
-  // Function to update a venue
+  /**
+   * Updates a venue in the API.
+   * @param {React.FormEvent} e - The form event.
+   */
   const updateVenueSubmit = async (e) => {
     e.preventDefault();  // Prevents page refresh
      // Convert formData into the required API format
@@ -124,7 +136,9 @@ function Venue() {
     getData();
 };
 
-// Function to delete a venue
+/**
+ * Deletes a venue from the API.
+ */
 const handleDelete = async () => {
   if (!id) {
     console.error("Venue ID is missing");
@@ -154,6 +168,9 @@ const handleDelete = async () => {
     console.error("Error deleting venue:", error);
   }
 };
+/**
+ * Fetches venue booking details.
+ */
 const handleVenueBooking = useCallback(async  () => {
   if (!data) return;
  const booking = data.name;
@@ -194,6 +211,7 @@ const handleVenueBooking = useCallback(async  () => {
     let rating = data.rating;
     let updated =  new Date(data.updated).toLocaleDateString();
     return (
+      <div className="section_admin_venue">
             <div className="container">
               {/* Edit Modal */}
                 <EditVenueModal formData={formData} handleChange={handleChange} updateVenueSubmit={updateVenueSubmit}/>
@@ -202,22 +220,28 @@ const handleVenueBooking = useCallback(async  () => {
                 <ShowVenueBooking venueBooking={venueBooking}/>
                 <div className="row">
                     <div className="col col-md-12">
-                        <h4 className="d-flex justify-content-center ms-5 mt-5 fw-bolder" >{data.name}</h4>
+                        <h4 className="d-flex justify-content-center ms-5 mt-5 mb-3 fw-bolder" >{data.name}</h4>
+                    </div>
+                    <div className="col-md-6 d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
+                      <button className="cta-btn btn-sm" data-bs-toggle="modal" data-bs-target="#editVenueModal">
+                        Edit
+                      </button>
+                      <button className="cta-btn--outline btn-sm" data-bs-toggle="modal" data-bs-target="#deleteVenueModal">
+                        Delete
+                      </button>
+                      <button className="cta-btn--outline btn-sm" data-bs-toggle="modal" data-bs-target="#showVenueBookingModal">
+                        Show Venue Booking
+                      </button>
                     </div>
                     <div className="col-md-6">
-                        <button className='cta-btn me-2' data-bs-toggle="modal" data-bs-target="#editVenueModal">Edit</button>
-                        <button className='cta-btn--outline me-2' data-bs-toggle="modal" data-bs-target="#deleteVenueModal">Delete</button>
-                        <button className='cta-btn--outline' data-bs-toggle="modal" data-bs-target="#showVenueBookingModal">Show Venue Booking</button>
-                    </div>
-                    <div className="col-md-6">
-                        <h5 className="d-flex justify-content-end ms-5 "> {rating} Stars <span className=" ms-3 "> <StarRating count={rating} /></span></h5>
+                        <h5 className="d-flex justify-content-center justify-content-md-end mt-3 mt-md-0"> {rating} Stars <span className=" ms-3 "> <StarRating count={rating} /></span></h5>
                     </div>
                     <div className="col-md-12 mt-5 d-flex justify-content-center"><img className='img-fluid' src={data.media?.[0]?.url ? data.media[0].url : ''} alt={data.title} />
                     </div>
                     <div className="col-md-12">
 
-                        <div className="d-flex justify-content-between ms-5 mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_info"  style={{ cursor: "pointer" }} >
-                            <h3 className="d-flex justify-content-start ms-5 mt-3" >Information</h3>
+                        <div className="d-flex justify-content-between  mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_info"  style={{ cursor: "pointer" }} >
+                            <h3 className="d-flex justify-content-start mt-3" >Information</h3>
                             <div className="d-flex align-items-center" >
                                 <svg
                                     data-accordion-icon="true"
@@ -238,16 +262,17 @@ const handleVenueBooking = useCallback(async  () => {
                             </div>
                         </div>
                         <div id="hotel_info" className="collapse">
-                            <div className="card card-body">
-                            <p  className="d-flex justify-content-start ms-5 mt-2">{data.description}</p>
-                            <p  className="d-flex justify-content-start ms-5 mt-2">Max Guests : {data.maxGuests}</p>
-                            <p  className="d-flex justify-content-start ms-5 mt-2">Updated : {updated}</p>
+                            <div className="card card-body bg-grey">
+                              <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Hotel : </span> {data.name}</p>
+                              <p  className="d-flex justify-content-start ms-3 "><span className="fw-bold me-1">Description : </span> {data.description}</p>
+                              <p  className="d-flex justify-content-start ms-3"><span className="fw-bold me-1">Max Guests :</span> {data.maxGuests}</p>
+                              <p  className="d-flex justify-content-start ms-3"><span className="fw-bold me-1">Updated :</span> {updated}</p>
                             </div>
                         </div>
 
-                        <hr className="d-flex justify-content-start ms-5 "/>
-                        <div className="d-flex justify-content-between ms-5 mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_facilities"  style={{ cursor: "pointer" }} >
-                            <h3 className="d-flex justify-content-start ms-5 mt-3" >Facilities </h3>
+                        <hr className="d-flex justify-content-start"/>
+                        <div className="d-flex justify-content-between mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_facilities"  style={{ cursor: "pointer" }} >
+                            <h3 className="d-flex justify-content-start mt-3" >Facilities </h3>
                             <div className="d-flex align-items-center" >
                                 <svg
                                     data-accordion-icon="true"
@@ -269,16 +294,16 @@ const handleVenueBooking = useCallback(async  () => {
                         </div>
 
                         <div id="hotel_facilities" className="collapse">
-                            <div className="card card-body">
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Breakfast : {data.meta.breakfast ? 'Yes' :'No'}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Parking : {data.meta.parking  ? 'Yes' :'No'}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Wifi :  {data.meta.wifi ? 'Yes' : 'No'}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Pets : {data.meta.pets ? 'Yes':'No'}</p>
+                            <div className="card card-body bg-grey">
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Breakfast : </span>{data.meta.breakfast ? 'Yes' :'No'}</p>
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Parking : </span>{data.meta.parking  ? 'Yes' :'No'}</p>
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Wifi :  </span>{data.meta.wifi ? 'Yes' : 'No'}</p>
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Pets : </span>{data.meta.pets ? 'Yes':'No'}</p>
                             </div>
                         </div>
-                        <hr className="d-flex justify-content-start ms-5 "/>
-                        <div className="d-flex justify-content-between ms-5 mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_location"  style={{ cursor: "pointer" }} >
-                            <h3 className="d-flex justify-content-start ms-5 mt-3" >Location </h3>
+                        <hr className="d-flex justify-content-start"/>
+                        <div className="d-flex justify-content-between mt-3" data-bs-toggle="collapse" data-bs-target="#hotel_location"  style={{ cursor: "pointer" }} >
+                            <h3 className="d-flex justify-content-start mt-3" >Location </h3>
                             <div className="d-flex align-items-center" >
                                 <svg
                                     data-accordion-icon="true"
@@ -299,27 +324,35 @@ const handleVenueBooking = useCallback(async  () => {
                             </div>
                         </div>
                         <div id="hotel_location" className="collapse">
-                            <div className="card card-body">
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Address : {data.location?.address}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">City : {data.location?.city}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Zip :  {data.location?.zip}</p>
-                                <p  className="d-flex justify-content-start ms-5 mt-2">Country : {data.location?.country}</p>
+                            <div className="card card-body bg-grey">
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Address : </span>{data.location?.address}</p>
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">City : </span>{data.location?.city}</p>
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Zip :  </span>{data.location?.zip}</p>
+                                <p  className="d-flex justify-content-start ms-3 mt-2"><span className="fw-bold me-1">Country : </span>{data.location?.country}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr className="d-flex justify-content-start ms-5 "/>
+                <hr className="d-flex justify-content-start"/>
             </div>
+          </div>
         );
 }
-// StarRating component
+/**
+ * Component for displaying a star rating.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {number} props.count - The number of filled stars (out of 5).
+ * @returns {JSX.Element} The StarRating component.
+ */
 function StarRating(props){
     const stars = [];
     const emptyStars = [];
     const totalStars = 5;
     const remainingStars = totalStars - props.count;
     for(let i = 0; i < props.count; i++){
-        stars.push(<i className="bi bi-star-fill fs-5 ms-1" key={i} style={{ color: '#ffc107' }}></i>);
+        stars.push(<i className="bi bi-star-fill fs-5 ms-1" key={i} style={{ color: 'var(--dark-red)' }}></i>);
     }
     for(let j = 0; j < remainingStars; j++){
         emptyStars.push(<i className="bi bi-star-fill fs-5 ms-1" key={j} style={{ color: "var(--dark-grey)" }}></i>);
@@ -328,7 +361,16 @@ function StarRating(props){
 }
 export default Venue;
 
-// EditModal component
+/**
+ * EditVenueModal component displays a modal for editing venue details.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.formData - The current state of the form data for the venue.
+ * @param {Function} props.handleChange - Function to handle input field changes.
+ * @param {Function} props.updateVenueSubmit - Function to handle the form submission.
+ *
+ * @returns {JSX.Element} The modal for editing venue details.
+ */
 const EditVenueModal = ({ formData, handleChange, updateVenueSubmit }) => {
     return (
       <div
@@ -516,7 +558,14 @@ const EditVenueModal = ({ formData, handleChange, updateVenueSubmit }) => {
       </div>
     );
   };
-// DeleteModal component
+/**
+ * DeleteVenueModal component displays a confirmation modal for deleting a venue.
+ *
+ * @param {Object} props - The component props.
+ * @param {Function} props.handleDelete - Function to execute when the delete button is clicked.
+ *
+ * @returns {JSX.Element} The modal for confirming venue deletion.
+ */
 const DeleteVenueModal = ({ handleDelete }) => {
     return (
       <div
@@ -546,10 +595,21 @@ const DeleteVenueModal = ({ handleDelete }) => {
       </div>
     );
  };
-
+/**
+ * ShowVenueBooking component displays venue booking details in a Bootstrap modal.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.venueBooking - The venue booking data.
+ * @param {Array} props.venueBooking.data - Array of venue objects containing bookings.
+ * @param {string} props.venueBooking.data[].name - Name of the venue.
+ * @param {Array} props.venueBooking.data[].bookings - Array of booking objects.
+ * @param {string} props.venueBooking.data[].bookings[].dateFrom - Booking check-in date (ISO string).
+ * @param {string} props.venueBooking.data[].bookings[].dateTo - Booking check-out date (ISO string).
+ * @param {number} props.venueBooking.data[].bookings[].guests - Number of guests for the booking.
+ *
+ * @returns {JSX.Element} The modal displaying venue booking details.
+ */
  const ShowVenueBooking = ({ venueBooking }) => {
-  console.log("venueBooking", venueBooking);
-
   return (
     <div
       className="modal fade"
