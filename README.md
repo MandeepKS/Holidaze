@@ -1,4 +1,5 @@
 # Holidaze
+![image](https://github.com/user-attachments/assets/8b45b3ad-ea5b-4496-96df-3c1a1f00828e)
 
 Holidaze is an e-commerce platform where users can browse, book, and manage holiday venues. Venue managers can also create and manage their listings.
 
